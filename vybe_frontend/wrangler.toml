@@ -4,5 +4,5 @@ compatibility_flags = [ "nodejs_compat" ]
 pages_build_output_dir = "out"
 
 [vars]
-NEXT_PUBLIC_API_URL = "https://vybe.local/api"
-NEXT_PUBLIC_SOCKET_URL = "https://vybe.local"
+NEXT_PUBLIC_API_URL = "https://vybe-app.onrender.com/api"
+NEXT_PUBLIC_SOCKET_URL = "https://vybe-app.onrender.com"

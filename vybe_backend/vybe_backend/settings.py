@@ -140,6 +140,20 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
+# CSRF Trusted Origins for Django 4.0+ security check on HTTPS
+CSRF_TRUSTED_ORIGINS = [
+    'https://vybe-app.onrender.com',
+    'https://vybe-app.pages.dev',
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+]
+
+# Support additional custom trusted origins via env var if needed
+env_origins = os.environ.get('CSRF_TRUSTED_ORIGINS')
+if env_origins:
+    CSRF_TRUSTED_ORIGINS.extend([origin.strip() for origin in env_origins.split(',') if origin.strip()])
+
+
 # REST Framework Config
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (

@@ -88,7 +88,9 @@ class RegisterView(APIView):
             )
             
             # Send verification link (prints to console per EMAIL_BACKEND setting)
-            verification_url = f"http://localhost:3000/verify-email?token={verification.token}"
+            import os
+            frontend_url = os.environ.get('FRONTEND_URL', 'http://localhost:3000')
+            verification_url = f"{frontend_url}/verify-email?token={verification.token}"
             send_mail(
                 subject="Verify Your VYBE Account",
                 message=f"Hello {user.username},\n\nPlease verify your account by clicking the link: {verification_url}",
@@ -223,7 +225,9 @@ class ResendVerificationView(APIView):
             )
             
             # Send
-            verification_url = f"http://localhost:3000/verify-email?token={verification.token}"
+            import os
+            frontend_url = os.environ.get('FRONTEND_URL', 'http://localhost:3000')
+            verification_url = f"{frontend_url}/verify-email?token={verification.token}"
             send_mail(
                 subject="Verify Your VYBE Account",
                 message=f"Hello {user.username},\n\nPlease verify your account by clicking the link: {verification_url}",

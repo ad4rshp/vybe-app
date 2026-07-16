@@ -11,6 +11,7 @@ logger = logging.getLogger(__name__)
 class MatchmakingState:
     def __init__(self):
         self.use_redis = False
+        redis_url = os.environ.get('REDIS_URL')
         redis_host = os.environ.get('REDIS_HOST', '127.0.0.1')
         redis_port = int(os.environ.get('REDIS_PORT', 6379))
         
@@ -25,13 +26,20 @@ class MatchmakingState:
         
         # Test Redis connection
         try:
-            self.r = redis.Redis(
-                host=redis_host,
-                port=redis_port,
-                db=0,
-                socket_connect_timeout=2,
-                decode_responses=True
-            )
+            if redis_url:
+                self.r = redis.Redis.from_url(
+                    redis_url,
+                    socket_connect_timeout=2,
+                    decode_responses=True
+                )
+            else:
+                self.r = redis.Redis(
+                    host=redis_host,
+                    port=redis_port,
+                    db=0,
+                    socket_connect_timeout=2,
+                    decode_responses=True
+                )
             self.r.ping()
             self.use_redis = True
             logger.info("Connected to Redis successfully for matchmaking.")

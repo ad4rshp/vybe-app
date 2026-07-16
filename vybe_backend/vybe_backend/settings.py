@@ -184,17 +184,28 @@ SIMPLE_JWT = {
 }
 
 # Django Channels & Redis settings
+REDIS_URL = os.environ.get('REDIS_URL')
 REDIS_HOST = os.environ.get('REDIS_HOST', '127.0.0.1')
 REDIS_PORT = os.environ.get('REDIS_PORT', '6379')
 
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": [(REDIS_HOST, int(REDIS_PORT))],
+if REDIS_URL:
+    CHANNEL_LAYERS = {
+        'default': {
+            'BACKEND': 'channels_redis.core.RedisChannelLayer',
+            'CONFIG': {
+                "hosts": [REDIS_URL],
+            },
         },
-    },
-}
+    }
+else:
+    CHANNEL_LAYERS = {
+        'default': {
+            'BACKEND': 'channels_redis.core.RedisChannelLayer',
+            'CONFIG': {
+                "hosts": [(REDIS_HOST, int(REDIS_PORT))],
+            },
+        },
+    }
 
 # Email Backend Settings
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

@@ -15,7 +15,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-size: 20
+          node-version: '20'
           cache: 'npm'
           cache-dependency-path: './vybe_frontend/package-lock.json'
 
@@ -39,11 +39,10 @@ jobs:
         with:
           python-version: '3.12'
           cache: 'pip'
-          cache-dependency-path: './vybe_backend/requirements.txt'
+          cache-dependency-path: 'requirements.txt'
 
       - name: Install dependencies
         run: |
-          cd vybe_backend
           pip install -r requirements.txt
 
       - name: Check Django configuration syntax

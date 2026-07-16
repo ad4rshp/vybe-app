@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vybe-frontend
+  labels:
+    app: vybe-frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: vybe-frontend
+  template:
+    metadata:
+      labels:
+        app: vybe-frontend
+    spec:
+      containers:
+      - name: frontend
+        image: vybe-frontend:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3000
+          name: http
+        env:
+        - name: NEXT_PUBLIC_API_URL
+          value: "https://vybe.local/api"
+        - name: NEXT_PUBLIC_SOCKET_URL
+          value: "https://vybe.local"
+        resources:
+          limits:
+            cpu: "800m"
+            memory: "512Mi"
+          requests:
+            cpu: "100m"
+            memory: "256Mi"
+        readinessProbe:
+          httpGet:
+            path: /login
+            port: 3000
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /login
+            port: 3000
+          initialDelaySeconds: 15
+          periodSeconds: 15

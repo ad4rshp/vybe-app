@@ -1,0 +1,49 @@
+# Dependency directories
+node_modules/
+.next/
+out/
+build/
+
+# Python compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Database files
+*.sqlite3
+*.sqlite3-journal
+
+# Environment files
+.env
+.env.local
+.env.*.local
+.env.development
+.env.test
+.env.production
+.env.staging
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# SSL Certificates (should not be checked in)
+certs/vybe.crt
+certs/vybe.key

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: vybe-frontend
+  labels:
+    app: vybe-frontend
+spec:
+  ports:
+  - port: 3000
+    targetPort: 3000
+    name: http
+  selector:
+    app: vybe-frontend
+  type: ClusterIP

@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vybe-backend
+  labels:
+    app: vybe-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: vybe-backend
+  template:
+    metadata:
+      labels:
+        app: vybe-backend
+    spec:
+      containers:
+      - name: backend
+        image: vybe-backend:latest
+        imagePullPolicy: IfNotPresent
+        command: ["daphne", "-b", "0.0.0.0", "-p", "8000", "vybe_backend.asgi:application"]
+        ports:
+        - containerPort: 8000
+          name: http-ws
+        env:
+        - name: DB_ENGINE
+          value: "django.db.backends.postgresql"
+        - name: DB_NAME
+          value: "vybe"
+        - name: DB_USER
+          value: "vybe_user"
+        - name: DB_PASSWORD
+          value: "vybe_secure_password_99"
+        - name: DB_HOST
+          value: "postgres"
+        - name: DB_PORT
+          value: "5432"
+        - name: REDIS_HOST
+          value: "redis"
+        - name: REDIS_PORT
+          value: "6379"
+        resources:
+          limits:
+            cpu: "1000m"
+            memory: "512Mi"
+          requests:
+            cpu: "250m"
+            memory: "256Mi"
+        readinessProbe:
+          httpGet:
+            path: /api/users/search/
+            port: 8000
+          initialDelaySeconds: 15
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /api/users/search/
+            port: 8000
+          initialDelaySeconds: 20
+          periodSeconds: 15

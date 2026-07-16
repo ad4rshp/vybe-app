@@ -1,0 +1,8 @@
+name = "vybe-frontend"
+compatibility_date = "2024-05-02"
+compatibility_flags = [ "nodejs_compat" ]
+pages_build_output_dir = "vybe_frontend/.next"
+
+[vars]
+NEXT_PUBLIC_API_URL = "https://vybe.local/api"
+NEXT_PUBLIC_SOCKET_URL = "https://vybe.local"

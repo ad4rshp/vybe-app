@@ -12,3 +12,4 @@ djangorestframework-simplejwt>=5.3.1
 django-cors-headers>=4.3.1
 cffi>=1.15.1
 cryptography>=41.0.0
+django-jazzmin>=3.0.0

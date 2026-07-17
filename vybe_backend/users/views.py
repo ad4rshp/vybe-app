@@ -96,7 +96,7 @@ class RegisterView(APIView):
                 message=f"Hello {user.username},\n\nPlease verify your account by clicking the link: {verification_url}",
                 from_email="no-reply@vybe.chat",
                 recipient_list=[user.email],
-                fail_silently=False,
+                fail_silently=True,
             )
             
             return Response({
@@ -233,7 +233,7 @@ class ResendVerificationView(APIView):
                 message=f"Hello {user.username},\n\nPlease verify your account by clicking the link: {verification_url}",
                 from_email="no-reply@vybe.chat",
                 recipient_list=[user.email],
-                fail_silently=False,
+                fail_silently=True,
             )
             
             return Response({"detail": "Verification email resent successfully."}, status=status.HTTP_200_OK)
